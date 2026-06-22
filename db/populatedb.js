@@ -6,11 +6,6 @@ const dropTables = `
 `;
 
 const createTables = `
-  CREATE TABLE IF NOT EXISTS ratings (
-    id SERIAL PRIMARY KEY,
-    stars INTEGER NOT NULL CHECK (stars >= 1 AND stars <= 5),
-  );
-
   CREATE TABLE IF NOT EXISTS genres (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
@@ -18,11 +13,11 @@ const createTables = `
 
   CREATE TABLE IF NOT EXISTS games (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    rating_id INTEGER REFERENCES ratings(id),
-    date_released DATE,
-    cover_image VARCHAR(500),
-    developers TEXT
+    name VARCHAR(255) UNIQUE NOT NULL,
+    rating INTEGER NOT NULL,
+    date_released DATE NOT NULL,
+    cover_image VARCHAR(500) NOT NULL,
+    developers TEXT NOT NULL
   );
 
   CREATE TABLE IF NOT EXISTS game_genres (
@@ -30,15 +25,6 @@ const createTables = `
     genre_id INTEGER REFERENCES genres(id) ON DELETE CASCADE,
     PRIMARY KEY (game_id, genre_id)
   );
-`;
-
-const seedRatings = `
-  INSERT INTO ratings (stars) VALUES
-    (1),
-    (2),
-    (3),
-    (4),
-    (5);
 `;
 
 const seedGenres = `
@@ -54,11 +40,12 @@ const seedGenres = `
     ('Open World'),
     ('Fighting'),
     ('Simulation'),
-    ('Puzzle');
+    ('Puzzle'),
+    ('Roguelike');
 `;
 
 const seedGames = `
-  INSERT INTO games (name, rating_id, date_released, cover_image, developers) VALUES
+  INSERT INTO games (name, rating, date_released, cover_image, developers) VALUES
     ('Elden Ring', 5, '2022-02-25', '/uploads/elden-ring.jpg', 'FromSoftware, Bandai Namco'),
     ('The Last of Us Part II', 5, '2020-06-19', '/uploads/tlou2.jpg', 'Naughty Dog'),
     ('Red Dead Redemption 2', 5, '2018-10-26', '/uploads/rdr2.jpg', 'Rockstar Games'),
@@ -73,11 +60,11 @@ const seedGameGenres = `
   INSERT INTO game_genres (game_id, genre_id) VALUES
     (1, 1), (1, 2), (1, 9),
     (2, 2), (2, 3), (2, 6),
-    (3, 3), (3, 9),
-    (4, 1), (4, 3), (4, 8),
+    (3, 2), (3, 3), (3, 9),
+    (4, 2), (4, 3), (4, 8),
     (5, 4),
     (6, 2), (6, 3), (6, 6),
-    (7, 1), (7, 2),
+    (7, 2), (7, 13),
     (8, 1), (8, 2), (8, 9);
 `;
 
@@ -96,7 +83,6 @@ async function main() {
     console.log("Tables dropped.");
     await client.query(createTables);
     console.log("Tables created.");
-    await client.query(seedRatings);
     await client.query(seedGenres);
     await client.query(seedGames);
     await client.query(seedGameGenres);
