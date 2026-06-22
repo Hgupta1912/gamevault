@@ -47,13 +47,13 @@ const seedGenres = `
 const seedGames = `
   INSERT INTO games (name, rating, date_released, cover_image, developers) VALUES
     ('Elden Ring', 5, '2022-02-25', '/uploads/elden-ring.jpg', 'FromSoftware, Bandai Namco'),
-    ('The Last of Us Part II', 5, '2020-06-19', '/uploads/tlou2.jpg', 'Naughty Dog'),
+    ('The Last of Us Part II', 5, '2020-06-19', '/uploads/tlou2.png', 'Naughty Dog'),
     ('Red Dead Redemption 2', 5, '2018-10-26', '/uploads/rdr2.jpg', 'Rockstar Games'),
-    ('Hollow Knight', 5, '2017-02-24', '/uploads/hollow-knight.jpg', 'Team Cherry'),
+    ('Hollow Knight', 5, '2017-02-24', '/uploads/hollow-knight.png', 'Team Cherry'),
     ('FIFA 24', 3, '2023-09-29', '/uploads/fifa24.jpg', 'EA Sports'),
-    ('Resident Evil 4 Remake', 5, '2023-03-24', '/uploads/re4.jpg', 'Capcom'),
+    ('Resident Evil 4 Remake', 5, '2023-03-24', '/uploads/re4.jpeg', 'Capcom'),
     ('Hades', 5, '2020-09-17', '/uploads/hades.jpg', 'Supergiant Games'),
-    ('Cyberpunk 2077', 4, '2020-12-10', '/uploads/cyberpunk.jpg', 'CD Projekt Red');
+    ('Cyberpunk 2077', 4, '2020-12-10', '/uploads/cyberpunk.jpeg', 'CD Projekt Red');
 `;
 
 const seedGameGenres = `
