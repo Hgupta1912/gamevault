@@ -7,7 +7,7 @@ const createGame = async (name, rating, date_released, imagePath, developers) =>
     RETURNING *`,
     [name, rating, date_released, imagePath, developers]
   );
-  return rows;
+  return rows[0];
 };
 
 const readAllGames = async () => {
@@ -36,7 +36,7 @@ const readGameById = async (id) => {
     GROUP BY games.id`, 
     [id]
   );
-  return rows;
+  return rows[0];
 };
 
 const updateGame = async (id, name, rating, date_released, imagePath, developers) => {
@@ -45,7 +45,7 @@ const updateGame = async (id, name, rating, date_released, imagePath, developers
     SET name = $1, rating = $2, date_released = $3, cover_image = $4, developers = $5
     WHERE id = $6
     RETURNING *`, 
-    [name, rating_id, date_released, imagePath, developers, id]
+    [name, rating, date_released, imagePath, developers, id]
   );
   return rows[0];
 };
@@ -61,34 +61,60 @@ const searchGames = async (searchTerm) => {
 };
 
 
-const createGenre = async () => {
-  const { rows } = await pool.query("SELECT * FROM games");
-  return rows;
+const createGenre = async (name) => {
+  const { rows } = await pool.query(`
+    INSERT INTO genres (name)
+    VALUES ($1)
+    RETURNING *
+  `, [name]);
+  return rows[0];
 };
 
 const readAllGenres = async () => {
-  const { rows } = await pool.query("SELECT * FROM games");
+  const { rows } = await pool.query(
+    "SELECT * FROM genres ORDER BY name ASC"
+  );
   return rows;
 };
 
-const readGenreById = async () => {
-  const { rows } = await pool.query("SELECT * FROM games");
-  return rows;
+const readGenreById = async (id) => {
+  const { rows } = await pool.query(
+    "SELECT * FROM genres WHERE id = $1", [id]
+  );
+  return rows[0];
 };
 
-const updateGenre = async () => {
-  const { rows } = await pool.query("SELECT * FROM games");
-  return rows;
+const updateGenre = async (id, name) => {
+  const { rows } = await pool.query(`
+    UPDATE genres
+    SET name = $1
+    WHERE id = $2
+    RETURNING *
+  `, [name, id]);
+  return rows[0];
 };
 
-const deleteGenre = async () => {
-  const { rows } = await pool.query("SELECT * FROM games");
-  return rows;
+const deleteGenre = async (id) => {
+  await pool.query("DELETE FROM genres WHERE id = $1", [id]);
 };
 
-const setGameGenres = async (game_id, genre_id) => {
-  const { rows } = await pool.query("SELECT * FROM games");
-  return rows;
+//do last too.
+const setGameGenres = async (game_id, genre_ids) => {
+  // delete existing genre links for this game then reinsert
+  await pool.query(
+    "DELETE FROM game_genres WHERE game_id = $1", [game_id]
+  );
+  if (genre_ids.length === 0) {
+    return;
+  }
+  const values = genre_ids.map(
+    (genre_id, i) => `($1, $${i + 2})`
+  ).join(", ");
+  
+  await pool.query(
+    `INSERT INTO game_genres (game_id, genre_id) VALUES ${values}`,
+    [game_id, ...genre_ids]
+  );
 };
 
 module.exports = {
