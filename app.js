@@ -17,6 +17,25 @@ app.use("/", indexRouter);
 app.use("/games", gamesRouter);
 app.use("/genres", genresRouter);
 
+// 404 — no route matched
+app.use((req, res) => {
+  res.status(404).render("error", {
+    status: 404,
+    message: "Page not found"
+  });
+});
+
+// 500 — something threw an error
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).render("error", {
+    status: err.status || 500,
+    message: process.env.NODE_ENV === "production"
+      ? "Something went wrong"
+      : err.message
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);

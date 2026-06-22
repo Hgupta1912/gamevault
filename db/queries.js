@@ -39,6 +39,27 @@ const readGameById = async (id) => {
   return rows[0];
 };
 
+const readGamesByGenre = async (id) => {
+    const { rows } = await pool.query(`
+    SELECT 
+        genres.*,
+        JSON_AGG(
+            JSON_BUILD_OBJECT(
+                'id', games.id,
+                'name', games.name,
+                'rating', games.rating,
+                'cover_image', games.cover_image
+            )
+        ) AS games
+    FROM genres
+    LEFT JOIN game_genres ON game_genres.genre_id = genres.id
+    LEFT JOIN games ON games.id = game_genres.game_id
+    WHERE genres.id = $1
+    GROUP BY genres.id
+    `, [id]);
+    return rows[0];
+};
+
 const updateGame = async (id, name, rating, date_released, imagePath, developers) => {
   const { rows } = await pool.query(`
     UPDATE games
@@ -54,9 +75,18 @@ const deleteGame = async (id) => {
   await pool.query("DELETE FROM games WHERE id = $1", [id]);
 };
 
-//DO! ill do it last...
 const searchGames = async (searchTerm) => {
-  const { rows } = await pool.query("SELECT * FROM games");
+  const { rows } = await pool.query(`
+    SELECT 
+      games.*,
+      STRING_AGG(genres.name, ', ') AS genres
+    FROM games
+    LEFT JOIN game_genres ON game_genres.game_id = games.id
+    LEFT JOIN genres ON genres.id = game_genres.genre_id
+    WHERE LOWER(games.name) LIKE LOWER($1)
+    GROUP BY games.id
+    ORDER BY games.rating DESC
+  `, [`%${searchTerm}%`]);
   return rows;
 };
 
@@ -110,7 +140,7 @@ const setGameGenres = async (game_id, genre_ids) => {
   const values = genre_ids.map(
     (genre_id, i) => `($1, $${i + 2})`
   ).join(", ");
-  
+
   await pool.query(
     `INSERT INTO game_genres (game_id, genre_id) VALUES ${values}`,
     [game_id, ...genre_ids]
@@ -121,6 +151,7 @@ module.exports = {
   readAllGames,
   readGameById,
   createGame,
+  readGamesByGenre,
   updateGame,
   deleteGame,
   searchGames,
