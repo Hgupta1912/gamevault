@@ -2,7 +2,8 @@
 
 A full CRUD game management app built with Node.js, Express, PostgreSQL, and EJS as part of [The Odin Project](https://www.theodinproject.com/) Node.js curriculum. Built to practice server-side rendering, MVC architecture, relational database design, and RESTful routing.
 
-**Live Demo:** _coming soon_
+**Live Demo:**  [Click here](https://gamevault-er00.onrender.com)
+
 
 ---
 
