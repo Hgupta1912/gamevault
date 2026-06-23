@@ -1,0 +1,29 @@
+<svg width="140" height="175" viewBox="220 0 140 175" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>GameVault icon</title>
+  <desc>Controller-inspired shield icon for GameVault</desc>
+
+  <style>
+    .logo-shield { fill: #f000e4; }
+    .logo-inner { fill: #0f1117; }
+    .logo-dpad { fill: #f000e4; }
+    .logo-btn { fill: #6c63ff; }
+    .logo-btn-b { fill: #e05c5c; }
+    .logo-stick { fill: #1a1d2e; stroke: #f000e4; stroke-width: 1.5; }
+  </style>
+
+  <g transform="translate(220, 20)">
+    <path class="logo-shield"
+      d="M60 0 L116 18 L116 75 Q116 130 60 155 Q4 130 4 75 L4 18 Z" />
+    <path class="logo-inner"
+      d="M60 8 L108 24 L108 75 Q108 122 60 144 Q12 122 12 75 L12 24 Z" />
+
+    <rect class="logo-dpad" x="51" y="56" width="10" height="30" rx="2"/>
+    <rect class="logo-dpad" x="41" y="66" width="30" height="10" rx="2"/>
+
+    <circle class="logo-btn" cx="88" cy="65" r="6"/>
+    <circle class="logo-btn-b" cx="95" cy="78" r="6"/>
+
+    <circle class="logo-stick" cx="40" cy="100" r="8"/>
+    <circle class="logo-stick" cx="80" cy="100" r="8"/>
+  </g>
+</svg>

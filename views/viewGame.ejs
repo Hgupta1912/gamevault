@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= game.name %> — GameVault</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/buttons.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <div class="container" style="padding-top: 2.5rem; padding-bottom: 3rem;">
+      <a href="/games" class="btn btn--ghost btn--sm" style="margin-bottom:1.5rem;">
+        ← Back to Games
+      </a>
+
+      <div class="detail-layout">
+        <div class="detail-cover">
+          <% if (game.cover_image) { %>
+            <img src="<%= game.cover_image %>" alt="<%= game.name %>" />
+          <% } else { %>
+            <span class="no-image">🎮</span>
+          <% } %>
+        </div>
+
+        <div class="detail-meta">
+          <h1><%= game.name %></h1>
+
+          <div class="stars" style="font-size:1.4rem;">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <span class="star <%= i <= game.rating ? 'filled' : '' %>">★</span>
+            <% } %>
+          </div>
+
+          <% if (game.developers) { %>
+            <div class="meta-row">
+              <label>Developer(s)</label>
+              <span><%= game.developers %></span>
+            </div>
+          <% } %>
+
+          <% if (game.date_released) { %>
+            <div class="meta-row">
+              <label>Release Date</label>
+              <span><%= new Date(game.date_released).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) %></span>
+            </div>
+          <% } %>
+
+          <% if (game.genres) { %>
+            <div class="meta-row">
+              <label>Genres</label>
+              <div class="genre-tags">
+                <% game.genres.split(', ').forEach(genre => { %>
+                  <span class="badge badge--accent"><%= genre %></span>
+                <% }) %>
+              </div>
+            </div>
+          <% } %>
+
+          <div class="detail-actions">
+            <a href="/games/<%= game.id %>/edit" class="btn btn--secondary">Edit</a>
+            <form action="/games/<%= game.id %>/delete" method="POST" class="delete-form"
+                  onsubmit="return confirm('Delete <%= game.name %>? This cannot be undone.')">
+              <button type="submit" class="btn btn--danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

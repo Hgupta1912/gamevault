@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Genre — GameVault</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/forms.css" />
+  <link rel="stylesheet" href="/css/buttons.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <div class="container" style="padding-top:2.5rem; padding-bottom:3rem;">
+      <div class="page-header">
+        <h1>Edit <span><%= genre.name %></span></h1>
+      </div>
+
+      <div class="form-card">
+        <form action="/genres/edit/<%= genre.id %>" method="POST">
+          <div class="form-group">
+            <label for="name">Genre Name</label>
+            <input type="text" id="name" name="name" value="<%= genre.name %>" required />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary">Save Changes</button>
+            <a href="/genres" class="btn btn--ghost">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

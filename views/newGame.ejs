@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Game — GameVault</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/forms.css" />
+  <link rel="stylesheet" href="/css/buttons.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <div class="container" style="padding-top:2.5rem; padding-bottom:3rem;">
+      <div class="page-header">
+        <h1>Add a <span>Game</span></h1>
+      </div>
+
+      <div class="form-card">
+        <form action="/games/new" method="POST" enctype="multipart/form-data">
+
+          <div class="form-group">
+            <label for="name">Game Title</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Elden Ring" required />
+          </div>
+
+          <div class="form-group">
+            <label>Rating</label>
+            <div class="star-input">
+              <% for (let i = 5; i >= 1; i--) { %>
+                <input type="radio" id="star<%= i %>" name="rating" value="<%= i %>" />
+                <label for="star<%= i %>">★</label>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date_released">Release Date</label>
+            <input type="date" id="date_released" name="date_released" />
+          </div>
+
+          <div class="form-group">
+            <label for="developers">Developer(s)</label>
+            <input type="text" id="developers" name="developers" placeholder="e.g. FromSoftware, Bandai Namco" />
+          </div>
+
+          <div class="form-group">
+            <label for="cover_image">Cover Image</label>
+            <input type="file" id="cover_image" name="cover_image" accept="image/*" />
+          </div>
+
+          <% if (genres && genres.length > 0) { %>
+            <div class="form-group">
+              <label>Genres</label>
+              <div class="checkbox-grid">
+                <% genres.forEach(genre => { %>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="genres" value="<%= genre.id %>" />
+                    <span><%= genre.name %></span>
+                  </label>
+                <% }) %>
+              </div>
+            </div>
+          <% } %>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary">Add Game</button>
+            <a href="/games" class="btn btn--ghost">Cancel</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

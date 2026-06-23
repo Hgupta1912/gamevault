@@ -1,0 +1,38 @@
+<div class="game-card" data-rating="<%= game.rating || 0 %>">
+  <div class="game-card__image">
+    <% if (game.cover_image) { %>
+      <img src="<%= game.cover_image %>" alt="<%= game.name %>" loading="lazy" />
+    <% } else { %>
+      <span class="no-image">🎮</span>
+    <% } %>
+  </div>
+
+  <div class="game-card__body">
+    <a href="/games/<%= game.id %>">
+      <div class="game-card__title"><%= game.name %></div>
+    </a>
+    <% if (game.developers) { %>
+      <div class="game-card__developers"><%= game.developers %></div>
+    <% } %>
+    <% if (game.genres) { %>
+      <div class="game-card__genres">
+        <% game.genres.split(', ').forEach(genre => { %>
+          <span class="badge"><%= genre %></span>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="game-card__footer">
+    <span class="game-card__date">
+      <% if (game.date_released) { %>
+        <%= new Date(game.date_released).getFullYear() %>
+      <% } %>
+    </span>
+    <div class="stars">
+      <% for (let i = 1; i <= 5; i++) { %>
+        <span class="star <%= i <= game.rating ? 'filled' : '' %>">★</span>
+      <% } %>
+    </div>
+  </div>
+</div>

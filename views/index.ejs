@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameVault</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/buttons.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <div class="container">
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 6rem 1rem;
+        gap: 1.5rem;
+      ">
+        <span style="font-size:4rem;">🎮</span>
+        <h1>Your Game <span style="color:var(--accent)">Library</span></h1>
+        <p style="max-width:480px; font-size:1.1rem;">
+          Track, manage, and organize your game collection. Add new games,
+          assign genres, and rate everything you've played.
+        </p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:1rem;">
+          <a href="/games" class="btn btn--primary">Browse Games</a>
+          <a href="/games/new" class="btn btn--secondary">+ Add a Game</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

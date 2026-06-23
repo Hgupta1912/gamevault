@@ -1,0 +1,147 @@
+/* ── Game Card ───────────────────────────────────────── */
+.game-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: rgba(255,255,255,0.14);
+}
+
+/* rating stripe — the signature design element */
+.game-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.game-card[data-rating="1"]::before { background: var(--danger); }
+.game-card[data-rating="2"]::before { background: #d97a3a; }
+.game-card[data-rating="3"]::before { background: var(--warning); }
+.game-card[data-rating="4"]::before { background: #7fc45e; }
+.game-card[data-rating="5"]::before { background: var(--success); }
+
+.game-card__image {
+  aspect-ratio: 6/9;
+  overflow: hidden;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.game-card:hover .game-card__image img {
+  transform: scale(1.04);
+}
+
+.game-card__image .no-image {
+  font-size: 2.5rem;
+  opacity: 0.25;
+}
+
+.game-card__body {
+  padding: 1rem 1rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.game-card__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.game-card__developers {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.game-card__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.game-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem 0.75rem 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.game-card__date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── Genre Card ─────────────────────────────────────── */
+.genre-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  text-decoration: none;
+}
+
+.genre-card:hover {
+  background: var(--surface-2);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.genre-card__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.genre-card__arrow {
+  color: var(--accent);
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.genre-card:hover .genre-card__arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.genre-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}

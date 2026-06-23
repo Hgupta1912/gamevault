@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error <%= status %> — GameVault</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/buttons.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <div class="container">
+      <div class="empty-state" style="padding: 6rem 2rem;">
+        <div style="font-family: var(--font-display); font-size: 6rem; font-weight: 700;
+                    color: var(--surface-3); letter-spacing: 0.05em; line-height:1;">
+          <%= status %>
+        </div>
+        <p style="font-size:1.1rem; margin: 1rem 0 2rem; color: var(--text-muted);">
+          <%= message %>
+        </p>
+        <a href="/" class="btn btn--primary">Go Home</a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

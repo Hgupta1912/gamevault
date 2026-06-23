@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit <%= game.name %> — GameVault</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/forms.css" />
+  <link rel="stylesheet" href="/css/buttons.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <div class="container" style="padding-top:2.5rem; padding-bottom:3rem;">
+      <div class="page-header">
+        <h1>Edit <span><%= game.name %></span></h1>
+      </div>
+
+      <div class="form-card">
+        <form action="/games/<%= game.id %>/edit" method="POST" enctype="multipart/form-data">
+
+          <!-- keep old image if no new one uploaded -->
+          <input type="hidden" name="existing_image" value="<%= game.cover_image || '' %>" />
+
+          <div class="form-group">
+            <label for="name">Game Title</label>
+            <input type="text" id="name" name="name" value="<%= game.name %>" required />
+          </div>
+
+          <div class="form-group">
+            <label>Rating</label>
+            <div class="star-input">
+              <% for (let i = 5; i >= 1; i--) { %>
+                <input type="radio" id="star<%= i %>" name="rating" value="<%= i %>"
+                  <%= game.rating === i ? 'checked' : '' %> />
+                <label for="star<%= i %>">★</label>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date_released">Release Date</label>
+            <input type="date" id="date_released" name="date_released"
+              value="<%= game.date_released ? new Date(game.date_released).toISOString().split('T')[0] : '' %>" />
+          </div>
+
+          <div class="form-group">
+            <label for="developers">Developer(s)</label>
+            <input type="text" id="developers" name="developers"
+              value="<%= game.developers || '' %>"
+              placeholder="e.g. FromSoftware, Bandai Namco" />
+          </div>
+
+          <div class="form-group">
+            <label for="cover_image">Cover Image</label>
+            <% if (game.cover_image) { %>
+              <div class="current-image-preview">
+                <img src="<%= game.cover_image %>" alt="Current cover" />
+                <span>Upload a new image to replace the current one</span>
+              </div>
+            <% } %>
+            <input type="file" id="cover_image" name="cover_image" accept="image/*"
+              style="margin-top: 0.5rem;" />
+          </div>
+
+          <% if (genres && genres.length > 0) { %>
+            <div class="form-group">
+              <label>Genres</label>
+              <%
+                // parse current game genres into an array for comparison
+                const currentGenres = game.genres ? game.genres.split(', ') : [];
+              %>
+              <div class="checkbox-grid">
+                <% genres.forEach(genre => { %>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="genres" value="<%= genre.id %>"
+                      <%= currentGenres.includes(genre.name) ? 'checked' : '' %> />
+                    <span><%= genre.name %></span>
+                  </label>
+                <% }) %>
+              </div>
+            </div>
+          <% } %>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary">Save Changes</button>
+            <a href="/games/<%= game.id %>" class="btn btn--ghost">Cancel</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

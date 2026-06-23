@@ -1,0 +1,74 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn:hover { opacity: 0.85; text-decoration: none; }
+.btn:active { transform: scale(0.97); }
+
+.btn--primary {
+  background: var(--accent);
+  color: #000;
+}
+
+.btn--secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn--secondary:hover {
+  background: var(--surface-3);
+}
+
+.btn--danger {
+  background: rgba(224, 92, 92, 0.15);
+  color: var(--danger);
+  border: 1px solid rgba(224, 92, 92, 0.25);
+}
+
+.btn--danger:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.btn--ghost:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.btn--sm {
+  font-size: 0.775rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.btn--icon {
+  padding: 0.45rem 0.55rem;
+}
+
+/* inline delete form button */
+.delete-form {
+  display: inline;
+}
+
+.delete-form .btn {
+  display: inline-flex;
+}
