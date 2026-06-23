@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="container navbar__inner">
+
+    <a href="/" class="navbar__logo">
+      <img src="/logo.svg" alt="Logo" height="32" />
+      GAME<span class="navbar__logo-text-accent">VAULT</span>
+    </a>
+
+    <div class="navbar__links">
+      <a href="/games">Games</a>
+      <a href="/genres">Genres</a>
+      <a href="/games/new">+ Add Game</a>
+    </div>
+
+    <form class="navbar__search" action="/games/search" method="POST">
+      <input type="text" name="search" placeholder="Search games..." />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+</nav>

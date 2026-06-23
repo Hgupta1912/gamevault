@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search: "<%= search %>" — GameVault</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/cards.css" />
+  <link rel="stylesheet" href="/css/buttons.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <div>
+          <h1>Results for <span>"<%= search %>"</span></h1>
+          <p style="margin-top:0.35rem;">
+            <%= games.length %> game<%= games.length !== 1 ? 's' : '' %> found
+          </p>
+        </div>
+        <a href="/games" class="btn btn--ghost">← All Games</a>
+      </div>
+
+      <% if (games.length === 0) { %>
+        <div class="empty-state">
+          <p>No games matched "<%= search %>". Try a different title.</p>
+        </div>
+      <% } else { %>
+        <div class="grid">
+          <% games.forEach(game => { %>
+            <%- include('partials/gameCard', { game }) %>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

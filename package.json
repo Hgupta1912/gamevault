@@ -5,11 +5,11 @@
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
     "multer": "^2.2.0",
-    "pg": "^8.22.0",
-    "tailwindcss": "^4.3.1"
+    "pg": "^8.22.0"
   },
-   "scripts": {
+  "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "node --watch app.js",
+    "seed": "node db/populatedb.js"
   }
 }
