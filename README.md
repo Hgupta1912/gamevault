@@ -41,12 +41,11 @@ The app follows the **MVC pattern**:
 - **Models** — `db/queries.js` contains all SQL queries via `pg` pool. No raw SQL in controllers.
 - **Views** — EJS templates in `/views`, organized with partials for navbar, footer, and game cards.
 - **Controllers** — `controllers/gameController.js` and `controllers/genreController.js` handle request logic, call the model layer, and pass data to views.
-- **Routes** — `routes/games.js` and `routes/genres.js` map URLs and HTTP methods to controllers.
+- **Routes** — `routes/index.js`,  `routes/games.js`, and `routes/genres.js` map URLs and HTTP methods to controllers.
 
 ### Database schema
 
 ```
-ratings (id, stars, label)
 genres  (id, name)
 games   (id, name, rating, date_released, cover_image, developers)
 game_genres (game_id → games, genre_id → genres)   ← junction table
@@ -119,7 +118,7 @@ node db/populatedb.js
 ├── controllers/
 │   ├── gameController.js
 │   ├── genreController.js
-│   └── uploadMiddleware.js
+│   └── uploadMiddleware.js.
 ├── db/
 │   ├── pool.js
 │   ├── queries.js
@@ -127,9 +126,11 @@ node db/populatedb.js
 ├── public/
 │   ├── css/
 │   └── uploads/
+│   └── logo.svg
 ├── routes/
 │   ├── games.js
 │   └── genres.js
+│   └── index.js
 ├── views/
 │   ├── partials/
 │   └── *.ejs
