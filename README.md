@@ -147,6 +147,14 @@ The views layer (all EJS templates and CSS) was built with assistance from [Clau
 
 ---
 
+## Known Limitations
+
+Image uploads do not persist on the free Render deployment. Multer saves uploaded cover images to the server's local filesystem, which Render wipes on every redeploy or restart. Any images uploaded through the UI after deployment will disappear the next time the server restarts.
+The permanent fix is integrating a cloud storage service like Cloudinary, where images are uploaded directly to the cloud and stored as a URL in the database rather than as a file on the server.
+Additionally, the free Render tier spins the server down after 15 minutes of inactivity, causing a 30-60 second cold start delay on the first request after a period of no traffic.
+
+---
+
 ## Author
 
 [@Hgupta1912](https://github.com/Hgupta1912)
