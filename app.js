@@ -22,6 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.set("trust proxy", 1); //this is for the session cookie's sake on production version
+ 
 app.use(session({
   store: new pgSession({
     pool: pool,

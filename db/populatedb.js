@@ -2,10 +2,18 @@ const { Client } = require("pg");
 require("dotenv").config();
 
 const dropTables = `
-  DROP TABLE IF EXISTS sessions, game_genres, games, genres, ratings;
+  DROP TABLE IF EXISTS sessions, game_genres, games, genres, users;
 `;
 
 const createTables = `
+  CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    is_admin BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT NOW()
+  );
+
   CREATE TABLE IF NOT EXISTS genres (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
