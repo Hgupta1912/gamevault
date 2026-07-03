@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/buttons.css" />
 </head>
 <body>
-  <%- include('partials/navbar') %>
+  <%- include('partials/navbar') %> 
 
   <main>
     <div class="container">
@@ -21,7 +21,11 @@
           <h1><span><%= genre.name %></span></h1>
         </div>
         <div style="display:flex; gap:0.75rem;">
-          <a href="/genres/edit/<%= genre.id %>" class="btn btn--secondary">Edit Genre</a>
+          <% if (locals.user) { %>
+            <a href="/genres/edit/<%= genre.id %>" class="btn btn--secondary">Edit Genre</a>
+          <% } else { %>
+            <a href="/auth/login" class="btn btn--secondary">Edit Genre</a>
+          <% } %>        
           <a href="/genres" class="btn btn--ghost">← All Genres</a>
         </div>
       </div>

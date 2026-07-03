@@ -1,6 +1,5 @@
 <nav class="navbar">
   <div class="container navbar__inner">
-
     <a href="/" class="navbar__logo">
       <img src="/logo.svg" alt="Logo" height="32" />
       GAME<span class="navbar__logo-text-accent">VAULT</span>
@@ -9,12 +8,31 @@
     <div class="navbar__links">
       <a href="/games">Games</a>
       <a href="/genres">Genres</a>
-      <a href="/games/new">+ Add Game</a>
+      <% if (locals.user) { %>
+        <a href="/games/new">+ Add Game</a>
+      <% } %>
     </div>
 
-    <form class="navbar__search" action="/games/search" method="POST">
-      <input type="text" name="search" placeholder="Search games..." />
-      <button type="submit">Search</button>
-    </form>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <form class="navbar__search" action="/games/search" method="POST">
+        <input type="text" name="search" placeholder="Search games..." />
+        <button type="submit">Search</button>
+      </form>
+
+      <div style="display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
+        <% if (locals.user) { %>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">
+            <%= user.email %>
+          </span>
+          <form action="/auth/logout" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn--ghost btn--sm">Log out</button>
+          </form>
+        <% } else { %>
+          <a href="/auth/login" class="btn btn--ghost btn--sm">Log in</a>
+          <a href="/auth/register" class="btn btn--primary btn--sm">Sign up</a>
+        <% } %>
+      </div>
+    </div>
+
   </div>
 </nav>

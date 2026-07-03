@@ -17,7 +17,11 @@
     <div class="container">
       <div class="page-header">
         <h1>All <span>Genres</span></h1>
-        <a href="/genres/new" class="btn btn--primary">+ Add Genre</a>
+        <% if (locals.user) { %>
+          <a href="/genres/new" class="btn btn--primary">+ Add Genre</a>
+        <% } else { %>
+          <a href="/auth/login" class="btn btn--primary">+ Add Genre</a>
+        <% } %>        
       </div>
 
       <% if (genres.length === 0) { %>

@@ -62,11 +62,11 @@
           <% } %>
 
           <div class="detail-actions">
-            <a href="/games/<%= game.id %>/edit" class="btn btn--secondary">Edit</a>
-            <form action="/games/<%= game.id %>/delete" method="POST" class="delete-form"
-                  onsubmit="return confirm('Delete <%= game.name %>? This cannot be undone.')">
-              <button type="submit" class="btn btn--danger">Delete</button>
-            </form>
+              <a href="/games/<%= game.id %>/edit" class="btn btn--secondary">Edit</a>
+              <form action="/games/<%= game.id %>/delete" method="POST" class="delete-form"
+                    onsubmit="return confirm('Delete <%= game.name %>? This cannot be undone.')">
+                <button type="submit" class="btn btn--danger">Delete</button>
+              </form>            
           </div>
         </div>
       </div>

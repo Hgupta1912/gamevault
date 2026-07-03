@@ -17,7 +17,11 @@
     <div class="container">
       <div class="page-header">
         <h1>All <span>Games</span></h1>
-        <a href="/games/new" class="btn btn--primary">+ Add Game</a>
+        <% if (locals.user) { %>
+          <a href="/games/new" class="btn btn--primary">+ Add Game</a>
+        <% } else { %>
+          <a href="/auth/login" class="btn btn--primary">+ Add Game</a>
+        <% } %>
       </div>
 
       <% if (games.length === 0) { %>

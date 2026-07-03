@@ -2,7 +2,7 @@ const { Client } = require("pg");
 require("dotenv").config();
 
 const dropTables = `
-  DROP TABLE IF EXISTS game_genres, games, genres, ratings;
+  DROP TABLE IF EXISTS sessions, game_genres, games, genres, ratings;
 `;
 
 const createTables = `
