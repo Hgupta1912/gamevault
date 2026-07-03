@@ -6,6 +6,12 @@ const dropTables = `
 `;
 
 const createTables = `
+  CREATE TABLE IF NOT EXISTS sessions (
+    sid VARCHAR NOT NULL PRIMARY KEY,
+    sess JSON NOT NULL,
+    expire TIMESTAMP NOT NULL
+  );
+  
   CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
