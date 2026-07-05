@@ -1,4 +1,6 @@
 const pool = require("./pool");
+const prisma = require("./prisma");
+
 
 const createGame = async (name, rating, date_released, imagePath, developers) => {
   const { rows } = await pool.query(`

@@ -12,14 +12,19 @@ A full CRUD game management app built with Node.js, Express, PostgreSQL, and EJS
 GameVault lets you manage a database of video games and genres through a clean web interface.
  
 **Anyone**
+
 - Browse all games sorted by rating
 - Browse games by genre
 - Search games by title
+
 **Logged in users**
+
 - Everything above
 - Add new games with a title, star rating, release date, developer(s), cover image, and genre tags
 - Add new genres
+
 **Admins**
+
 - Everything above
 - Edit and delete games
 - Edit and delete genres
@@ -43,7 +48,7 @@ To explore the admin features (editing, and deleting games and genres), use the 
 | Runtime | Node.js |
 | Framework | Express |
 | Database | PostgreSQL |
-| Query Layer | node-postgres (`pg`) |
+| Query Layer | Prisma ORM |
 | Views | EJS (server-side templating) |
 | Authentication | Passport.js (local strategy) + express-session |
 | Session store | connect-pg-simple (PostgreSQL) |
@@ -58,7 +63,7 @@ To explore the admin features (editing, and deleting games and genres), use the 
 
 The app follows the **MVC pattern**:
 
-- **Models** — `db/queries.js` contains all SQL queries via `pg` pool. No raw SQL in controllers.
+- **Models** — `db/queries.js` contains all Prisma ORM queries. No raw SQL in controllers.
 - **Views** — EJS templates in `/views`, organized with partials for navbar, footer, and game cards.
 - **Controllers** — `controllers/gameController.js`, `controllers/genreController.js`, and `controllers/authController.js` handle request logic, call the model layer, and pass data to views.
 - **Routes** — `routes/index.js`,  `routes/games.js`, `routes/auth.js`, and `routes/genres.js` map URLs and HTTP methods to controllers.
@@ -91,6 +96,7 @@ Games and genres share a many-to-many relationship via the `game_genres` junctio
 git clone https://github.com/Hgupta1912/game-management-app
 cd game-management-app
 npm install
+npx prisma generate
 ```
 
 Create a `.env` file in the project root:
@@ -114,10 +120,16 @@ Create the database in psql:
 CREATE DATABASE game_management;
 ```
 
-Seed the database (creates tables and inserts initial data):
+Push the Prisma schema to the database to create all tables:
 
 ```bash
-node db/populatedb.js
+npx prisma db push
+```
+
+Seed the database with initial data:
+
+```bash
+npx prisma db seed
 ```
 
 Start the dev server:
@@ -147,11 +159,18 @@ NODE_ENV=production
 DATABASE_URL=your_neon_connection_string
 SESSION_SECRET=your_random_secret_here
 ```
- 
-After deploying, run the seed script once via Render's shell tab to initialize the database:
+
+Update the build command in Render's dashboard to:
 
 ```bash
-node db/populatedb.js
+npm install && npx prisma generate
+```
+ 
+After deploying, seed the database by temporarily setting your local .env 
+DATABASE_URL to your Neon connection string and running:
+
+```bash
+npx prisma db seed
 ```
 
 ---
@@ -161,6 +180,8 @@ node db/populatedb.js
 ```
 ├── config/
 │   └── passport.js
+├── prisma/
+│   └── schema.prisma
 ├── middleware/
 │   ├── auth.js
 │   └── upload.js
@@ -169,9 +190,9 @@ node db/populatedb.js
 │   ├── genreController.js
 │   └── authController.js
 ├── db/
-│   ├── pool.js
+│   ├── prisma.js
 │   ├── queries.js
-│   └── populatedb.js
+│   └── seedDb.js
 ├── public/
 │   ├── css/
 │   ├── uploads/
@@ -185,6 +206,7 @@ node db/populatedb.js
 │   ├── partials/
 │   └── *.ejs
 ├── app.js
+├── prisma.config.js
 └── .env
 ```
 

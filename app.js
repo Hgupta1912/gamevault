@@ -5,7 +5,7 @@ const path = require("node:path");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const passport = require("passport");
-const pool = require("./db/pool");
+const { Pool } = require("pg");
 
 const indexRouter = require("./routes/index.js");
 const gamesRouter = require("./routes/games.js");
@@ -24,6 +24,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set("trust proxy", 1); //this is for the session cookie's sake on production version
  
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === "production"
+    ? { rejectUnauthorized: false }
+    : false,
+});
+
 app.use(session({
   store: new pgSession({
     pool: pool,
