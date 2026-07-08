@@ -75,11 +75,10 @@ The app follows the **MVC pattern**:
 users       (id, email, password_hash, is_admin, created_at)
 genres  (id, name)
 games   (id, name, rating, date_released, cover_image, developers)
-game_genres (game_id → games, genre_id → genres)   ← junction table
 sessions    (sid, sess, expire)                     ← managed by connect-pg-simple
 ```
 
-Games and genres share a many-to-many relationship via the `game_genres` junction table.
+Games and genres share an implicit many-to-many relationship, managed automatically by Prisma via a hidden join table.
 
 ---
 
