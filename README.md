@@ -181,6 +181,7 @@ npx prisma db seed
 ├── config/
 │   └── passport.js
 ├── prisma/
+│   ├── migrations/
 │   └── schema.prisma
 ├── middleware/
 │   ├── auth.js
