@@ -119,10 +119,10 @@ Create the database in psql:
 CREATE DATABASE game_management;
 ```
 
-Push the Prisma schema to the database to create all tables:
+Run the Prisma migrations to create all tables:
 
 ```bash
-npx prisma db push
+npx prisma migrate dev
 ```
 
 Seed the database with initial data:
