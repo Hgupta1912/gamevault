@@ -55,6 +55,7 @@ To explore the admin features (editing, and deleting games and genres), use the 
 | Password hashing | bcrypt |
 | File uploads | Multer |
 | Environment | dotenv |
+| Caching | apicache (in-memory) |
 | Deployment | Render + Neon |
 
 ---
