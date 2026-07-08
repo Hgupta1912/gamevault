@@ -14,10 +14,10 @@
     <% if (game.developers) { %>
       <div class="game-card__developers"><%= game.developers %></div>
     <% } %>
-    <% if (game.genres) { %>
+    <% if (game.genres.length) { %>
       <div class="game-card__genres">
-        <% game.genres.split(', ').forEach(genre => { %>
-          <span class="badge"><%= genre %></span>
+        <% game.genres.forEach(genre => { %>
+          <span class="badge"><%= genre.name %></span>
         <% }) %>
       </div>
     <% } %>

@@ -69,19 +69,30 @@
           <% if (genres && genres.length > 0) { %>
             <div class="form-group">
               <label>Genres</label>
+
+
+
+
+
               <%
-                // parse current game genres into an array for comparison
-                const currentGenres = game.genres ? game.genres.split(', ') : [];
+                // parse current game genre ids into an array for comparison
+                const currentGenreIds = game.genres ? game.genres.map(g => g.id) : [];
               %>
               <div class="checkbox-grid">
                 <% genres.forEach(genre => { %>
                   <label class="checkbox-item">
                     <input type="checkbox" name="genres" value="<%= genre.id %>"
-                      <%= currentGenres.includes(genre.name) ? 'checked' : '' %> />
+                      <%= currentGenreIds.includes(genre.id) ? 'checked' : '' %> />
                     <span><%= genre.name %></span>
                   </label>
                 <% }) %>
               </div>
+
+
+
+
+
+
             </div>
           <% } %>
 

@@ -13,6 +13,7 @@ const getAllGames = async (req, res, next) => {
 const getGameById = async (req, res, next) => {
   try {
     const game = await db.readGameById(req.params.id);
+    if (!game) return res.status(404).render("error", { status: 404, message: "Game not found" });
     res.render("viewGame", { game });
   } catch (err) {
     next(err);
@@ -42,10 +43,8 @@ const newGamePost = async (req, res, next) => {
   try {
     const { name, rating, date_released, developers, genres } = req.body;
     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
-    const game = await db.createGame(name, rating, date_released, imagePath, developers);
-    // genres comes in as array of id strings from checkboxes
     const genreIds = genres ? (Array.isArray(genres) ? genres : [genres]) : [];
-    await db.setGameGenres(game.id, genreIds);
+    const game = await db.createGame(name, rating, date_released, imagePath, developers, genreIds);
     res.redirect("/games");
   } catch (err) {
     next(err);
@@ -70,9 +69,8 @@ const editGamePost = async (req, res, next) => {
     const imagePath = req.file
       ? `/uploads/${req.file.filename}`
       : req.body.existing_image; // keep old image if no new one uploaded
-    await db.updateGame(req.params.id, name, rating, date_released, imagePath, developers);
     const genreIds = genres ? (Array.isArray(genres) ? genres : [genres]) : [];
-    await db.setGameGenres(req.params.id, genreIds);
+    await db.updateGame(req.params.id, name, rating, date_released, imagePath, developers, genreIds);
     res.redirect(`/games/${req.params.id}`);
   } catch (err) {
     next(err);

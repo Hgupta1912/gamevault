@@ -50,12 +50,12 @@
             </div>
           <% } %>
 
-          <% if (game.genres) { %>
+          <% if (game.genres.length) { %>
             <div class="meta-row">
               <label>Genres</label>
               <div class="genre-tags">
-                <% game.genres.split(', ').forEach(genre => { %>
-                  <span class="badge badge--accent"><%= genre %></span>
+                <% game.genres.forEach(genre => { %>
+                  <span class="badge badge--accent"><%= genre.name %></span>
                 <% }) %>
               </div>
             </div>
