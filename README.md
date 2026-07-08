@@ -75,7 +75,7 @@ The app follows the **MVC pattern**:
 users       (id, email, password_hash, is_admin, created_at)
 genres  (id, name)
 games   (id, name, rating, date_released, cover_image, developers)
-sessions    (sid, sess, expire)                     ← managed by connect-pg-simple
+Session     (id, sid, data, expiresAt)              ← managed by prisma-session-store
 ```
 
 Games and genres share an implicit many-to-many relationship, managed automatically by Prisma via a hidden join table.
@@ -162,7 +162,7 @@ SESSION_SECRET=your_random_secret_here
 Update the build command in Render's dashboard to:
 
 ```bash
-npm install && npx prisma generate
+npm install && npx prisma generate && npx prisma migrate deploy
 ```
  
 After deploying, seed the database by temporarily setting your local .env 
