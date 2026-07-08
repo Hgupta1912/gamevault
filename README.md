@@ -51,7 +51,7 @@ To explore the admin features (editing, and deleting games and genres), use the 
 | Query Layer | Prisma ORM |
 | Views | EJS (server-side templating) |
 | Authentication | Passport.js (local strategy) + express-session |
-| Session store | connect-pg-simple (PostgreSQL) |
+| Session store | prisma-session-store (PostgreSQL) |
 | Password hashing | bcrypt |
 | File uploads | Multer |
 | Environment | dotenv |
